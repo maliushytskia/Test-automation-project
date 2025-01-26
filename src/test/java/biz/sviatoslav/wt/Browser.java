@@ -6,9 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Browser {
-    private static WebDriver driver;
+    private static RemoteWebDriver driver;
     private static ChromeOptions options;
 
     public static WebDriver getDriver() {
