@@ -10,7 +10,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Browser {
     private static RemoteWebDriver driver;
-    private static ChromeOptions options;
 
     public static WebDriver getDriver() {
         if (driver == null) {
@@ -18,10 +17,10 @@ public class Browser {
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    options = new ChromeOptions();
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--headless");
+                    options.addArguments("--disable-gpu");
                     options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-extensions");
-                    options.addArguments("--incognito");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
