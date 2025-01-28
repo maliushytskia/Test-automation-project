@@ -20,6 +20,8 @@ public class Browser {
                     WebDriverManager.chromedriver().setup();
                     options = new ChromeOptions();
                     options.addArguments("--headless");
+                    options.addArguments("--disable-extensions");
+                    options.addArguments("--incognito");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
