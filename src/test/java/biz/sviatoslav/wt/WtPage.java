@@ -64,6 +64,7 @@ public class WtPage {
     public WtPage selectFemale() {
         By gender = By.xpath(femaleRadioButton);
         WebElement findGender = driver.findElement(gender);
+        findGender.click();
         return this;
     }
 

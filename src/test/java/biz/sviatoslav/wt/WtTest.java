@@ -35,5 +35,4 @@ public class WtTest extends BaseTest {
                 .clickCalculateButton();
         Assertions.assertEquals("Идеальная масса тела", wtPage.getResultMessage());
     }
-
 }

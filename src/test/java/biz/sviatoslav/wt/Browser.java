@@ -18,8 +18,9 @@ public class Browser {
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
                     options = new ChromeOptions();
+                    options.addArguments("--headless");
+                    driver = new ChromeDriver();
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -33,7 +34,6 @@ public class Browser {
                     throw new IllegalArgumentException("Unsupported browser: " + browser);
             }
             driver.manage().window().maximize();
-            options.addArguments("--headless");
         }
         return driver;
     }
