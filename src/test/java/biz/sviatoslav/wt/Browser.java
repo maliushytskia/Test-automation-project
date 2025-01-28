@@ -21,7 +21,7 @@ public class Browser {
                     options.addArguments("--headless");
                     options.addArguments("--disable-gpu");
                     options.addArguments("--no-sandbox");
-                    driver = new ChromeDriver();
+                    driver = new ChromeDriver(options);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
