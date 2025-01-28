@@ -19,7 +19,6 @@ public class Browser {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     options = new ChromeOptions();
-                    options.addArguments("--headless");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
                     options.addArguments("--user-data-dir=/tmp/chrome_" + System.currentTimeMillis());
