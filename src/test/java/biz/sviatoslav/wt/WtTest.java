@@ -11,7 +11,7 @@ public class WtTest extends BaseTest {
     public void testSiteOpened() {
         WebElement element = driver.findElement(By.xpath("/html/body/table/tbody/tr[3]/td"));
         String actual = element.getText();
-        String expected = "© CoolSoft by Somebody" +
+        String expected = "© CoolSoft by Somebody\n" +
                 "fhlrhwelrwerhwerh";
         Assertions.assertEquals(expected, actual);
     }
