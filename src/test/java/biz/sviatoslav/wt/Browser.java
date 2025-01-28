@@ -20,8 +20,9 @@ public class Browser {
                     WebDriverManager.chromedriver().setup();
                     options = new ChromeOptions();
                     options.addArguments("--headless");
-                    options.addArguments("--disable-extensions");
-                    options.addArguments("--incognito");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--user-data-dir=/tmp/chrome_" + System.currentTimeMillis());
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
