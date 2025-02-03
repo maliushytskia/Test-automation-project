@@ -1,13 +1,18 @@
-package biz.sviatoslav.wt;
+package tests;
 
+import core.BaseTest;
+import core.Browser;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.WtPage;
 
 public class WtTest extends BaseTest {
     WtPage wtPage = new WtPage(Browser.getDriver());
 
     @Test
+    @Story("Valid Login")
     public void testSiteOpened() {
         WebElement element = driver.findElement(By.xpath("/html/body/table/tbody/tr[3]/td"));
         String actual = element.getText();

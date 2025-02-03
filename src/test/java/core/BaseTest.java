@@ -1,11 +1,11 @@
-package biz.sviatoslav.wt;
+package core;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 
 public class BaseTest {
-    WebDriver driver;
+   public WebDriver driver;
 
     @BeforeEach
     public void beforeEach() {
