@@ -21,9 +21,6 @@ public class BaseTest {
 
     @AfterEach
     public void afterEach(TestInfo testInfo) {
-        Class currentClass = this.getClass();
-        boolean testPassed = !testInfo.getTags().contains("FAILED");
         Browser.quitDriver();
-        logger.logTestEnd(currentClass.getName(), testPassed);
     }
 }
