@@ -13,10 +13,10 @@ public class WtTest extends BaseTest {
 
     @Test
     @Story("Valid Login")
-    public void testSiteOpened() {
+    public void testSiteOpened(TestInfo testInfo) {
         WebElement element = driver.findElement(By.xpath("/html/body/table/tbody/tr[3]/td"));
         String actual = element.getText();
-        String expected = "© CoolSoft by Somebody\n" +
+        String expected = "© CoolSoft by Somebody" +
                 "fhlrhwelrwerhwerh";
         Assertions.assertEquals(expected, actual);
     }
