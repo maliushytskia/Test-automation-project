@@ -17,10 +17,10 @@ public class Browser {
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    //   ChromeOptions options = new ChromeOptions();
-                    //   options.addArguments("--headless");
-                    //   options.addArguments("--disable-gpu");
-                    //   options.addArguments("--no-sandbox");
+                       ChromeOptions options = new ChromeOptions();
+                       options.addArguments("--headless");
+                       options.addArguments("--disable-gpu");
+                       options.addArguments("--no-sandbox");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
