@@ -26,7 +26,7 @@ import static io.cucumber.core.options.Constants.PLUGIN_PROPERTY_NAME;
         plugin = {
                 "pretty",
                 "json:target/cucumber-report/cucumber.json",
- //               "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"
+                "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"
         },
         dryRun = false, monochrome = true
 )
