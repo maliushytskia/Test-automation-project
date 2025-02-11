@@ -2,18 +2,20 @@ package core.elements;
 
 import core.Browser;
 import core.Constants;
+import core.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class BaseElement {
-    public static WebDriver driver = Browser.getDriver();
+    private static WebDriver driver = Browser.getDriver();
+    private static Logger logger = Logger.getInstance();
     protected WebElement element;
     private By locator;
     private String name;
@@ -21,6 +23,20 @@ public abstract class BaseElement {
     public BaseElement(By locator, String name) {
         this.locator = locator;
         this.name = name;
+        this.element = findElement();
+    }
+
+    public WebElement findElement() {
+        List<WebElement> list = driver.findElements(locator);
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list.
+                stream().
+                filter(WebElement::isDisplayed).
+                findFirst()
+                .orElse(null);
     }
 
     public By getLocator() {
@@ -35,14 +51,6 @@ public abstract class BaseElement {
         return driver.findElement(locator).isEnabled();
     }
 
-    public void waitFotElementVisible() {
-        new FluentWait<>(driver)
-                .withTimeout(Constants.DEFAULT_WAIT_TIME)
-                .pollingEvery(Duration.ofMillis(500))
-                .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.visibilityOf(element));
-    }
-
     public void waitForElementClickable() {
         new FluentWait<>(driver)
                 .withTimeout(Constants.DEFAULT_WAIT_TIME)
@@ -51,11 +59,53 @@ public abstract class BaseElement {
                 .until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public void waitForElementPresent() {
-        new FluentWait<>(driver)
-                .withTimeout(Constants.DEFAULT_WAIT_TIME)
-                .pollingEvery(Duration.ofMillis(500))
+    public void click() {
+        if (isPresent(Constants.DEFAULT_TIMEOUT_MS)) {
+            waitForElementClickable();
+            logger.info(String.format("Clicking on %s element", name));
+            element.click();
+        }
+    }
+
+    public void sendKeys(String value) {
+        if (isPresent(Constants.DEFAULT_TIMEOUT_MS)) {
+            logger.info(String.format("Sending %s value in %s element", value, name));
+            driver.findElement(locator).sendKeys(value);
+        }
+    }
+
+    public boolean isElementPresent() {
+        logger.info(String.format("Checking presence of %s element", element));
+        return isPresent(Constants.DEFAULT_TIMEOUT_MS);
+    }
+
+    public boolean isPresent(int timeout) {
+        FluentWait<WebDriver> fluentWait = new FluentWait<>(Browser.getDriver());
+        fluentWait
+                .withTimeout(Duration.ofMillis(timeout))
+                .pollingEvery(Constants.DEFAULT_WAIT_TIME)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
+
+        try {
+            element = fluentWait.until(driver -> {
+                List<WebElement> list = driver.findElements(locator);
+                if (list.isEmpty()) {
+                    return null;
+                }
+
+                return list.
+                        stream().
+                        filter(WebElement::isDisplayed).
+                        findFirst()
+                        .orElse(null);
+            });
+
+            return element != null;
+
+        } catch (Exception e) {
+            logger.warn(String.format("Element %s is not found after waiting for %d milliseconds", element, timeout));
+        }
+        return false;
     }
 }

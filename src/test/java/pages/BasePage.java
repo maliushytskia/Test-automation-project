@@ -1,6 +1,8 @@
 package pages;
 
 import core.Browser;
+import core.Constants;
+import core.Logger;
 import core.elements.Label;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,7 +17,7 @@ public abstract class BasePage {
     private By locator;
     private String name;
 
-    BasePage(By locator, String name) {
+    protected BasePage(By locator, String name) {
         this.locator = locator;
         this.name = name;
         isPageOpen();
@@ -24,7 +26,7 @@ public abstract class BasePage {
     private void isPageOpen() {
         Label lbl = new Label(locator, name);
         try {
-            lbl.waitForElementPresent();
+            lbl.isElementPresent();
         } catch (Throwable e) {
             throw new RuntimeException(e.getMessage());
         }
