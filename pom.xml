@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <allure.version>2.29.1</allure.version>
     </properties>
 
     <build>
@@ -44,7 +45,7 @@
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>io.cucumber.junit.platform.engine.Cucumber</value>
+                            <value>io.qameta.allure.junitplatform.AllureJunitPlatform</value>
                         </property>
                     </properties>
                     <dependenciesToScan>
@@ -54,6 +55,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -92,13 +105,12 @@
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit5</artifactId>
-            <version>2.29.1</version>
+            <artifactId>allure-junit-platform</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit-platform</artifactId>
-            <version>2.29.1</version>
+            <artifactId>allure-java-commons</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
