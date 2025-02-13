@@ -1,0 +1,29 @@
+version: '1.0'
+
+services:
+  dev-environment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Jenkins-jdk21-chrome
+    volumes:
+      # Монтируем текущую директорию внутрь контейнера
+      - ./app:/app
+      # Монтируем внешний файл с настройками
+      - ./settings:/settings
+      # Монтируем директорию Jenkins для сохранения данных
+      - jenkins_home:/var/jenkins_home
+    environment:
+      # Пример переменных окружения
+      JAVA_HOME: "/usr/lib/jvm/java-21-openjdk-amd64"
+      PATH: "/usr/lib/jvm/java-21-openjdk-amd64/bin:/opt/apache-maven-3.9.5/bin:$PATH"
+    ports:
+      - "8082:8080"  # Jenkins
+      - "50002:50000"  # Jenkins agent
+    stdin_open: true
+    tty: true
+    privileged: true
+    user: root
+
+volumes:
+  jenkins_home:
