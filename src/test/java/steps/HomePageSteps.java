@@ -17,6 +17,7 @@ public class HomePageSteps {
     @Given("user opens Shop by Category panel")
     public void openShopByCategoryPanel() {
         Logger.getInstance().info("Shop by Category panel opening");
+        homePage.openProductByName("HTC Touch HD");
         homePage.openShopByCategoryMenu();
     }
 
@@ -24,5 +25,10 @@ public class HomePageSteps {
     public void openCategoryByName(String category) {
         Logger.getInstance().info("Category opening");
         homePage.openShopCategory(category);
+    }
+
+    @When("user opens {string} product from Home page")
+    public void openProductByProductName(String productName) {
+        homePage.openProductByName(productName);
     }
 }
