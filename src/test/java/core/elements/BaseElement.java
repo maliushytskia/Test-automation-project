@@ -26,6 +26,10 @@ public abstract class BaseElement {
         this.element = findElement();
     }
 
+    public BaseElement() {
+
+    }
+
     public WebElement findElement() {
         List<WebElement> list = driver.findElements(locator);
         if (list.isEmpty()) {
@@ -65,6 +69,10 @@ public abstract class BaseElement {
             logger.info(String.format("Clicking on %s element", name));
             element.click();
         }
+    }
+
+    public List<WebElement> findElements() {
+        return driver.findElements(locator);
     }
 
     public void sendKeys(String value) {

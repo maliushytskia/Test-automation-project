@@ -15,7 +15,7 @@ public class HomePage extends BasePage implements Product {
 
     public HomePage() {
         super(By.xpath("//a[@title='Poco Electro']"), "Home Page");
-        Logger.getInstance().info(String.format("%s is opened", Class.class.getName()));
+        Logger.getInstance().info(String.format("%s is opened", this.getClass().getSimpleName()));
     }
 
     public HomePage openShopByCategoryMenu() {
