@@ -24,6 +24,10 @@ public class Logger {
         LOG4J.warn(message);
     }
 
+    public void error(String message) {
+        LOG4J.error(message);
+    }
+
     public void logTestName(final String testName) {
         String formattedName = String.format("=====================  Test case: '%s' =====================", testName);
 

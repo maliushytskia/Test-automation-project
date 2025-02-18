@@ -3,12 +3,18 @@ package steps;
 import core.Browser;
 import core.Constants;
 import core.Logger;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import org.junit.Test;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Hooks {
     public static WebDriver driver;
@@ -24,14 +30,27 @@ public class Hooks {
     }
 
     @After
-    public void afterTest() {
-        Class<? extends Hooks> currentClass = this.getClass();
-
+    public void afterTest(Scenario scenario) {
         boolean testPassed = true;
-        if (currentClass.isAnnotationPresent(Test.class)) {
-            Test testAnnotation = (Test) currentClass.getAnnotation(Test.class);
-            if (testAnnotation != null && testAnnotation.expected() != Test.None.class) {
-                testPassed = false;
+
+        if (scenario.getStatus() == Status.FAILED) {
+            testPassed = false;
+        }
+
+        if (!testPassed) {
+            logger.info("Test failed, capturing screenshot...");
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "png", "screenshot");
+
+            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String filePath = String.format("./src/test/java/artifacts/%s_screenshot_%s.png", scenario.getName(), timestamp);
+
+            try {
+                logger.info("Saving screenshot to: " + filePath);
+                Files.createDirectories(Paths.get("./src/test/java/artifacts"));
+                Files.write(Paths.get(filePath), screenshot);
+            } catch (IOException e) {
+                logger.error("Error saving screenshot: " + e.getMessage());
             }
         }
         logger.logTestEnd(scenarioName, testPassed);
