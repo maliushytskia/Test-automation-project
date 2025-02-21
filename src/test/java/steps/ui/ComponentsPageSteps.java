@@ -1,4 +1,4 @@
-package steps;
+package steps.ui;
 
 import core.Logger;
 import io.cucumber.java.en.When;

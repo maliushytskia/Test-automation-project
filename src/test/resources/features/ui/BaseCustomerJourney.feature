@@ -1,4 +1,4 @@
-@positive
+@ui @positive
 Feature: Test base functionality on Home Page
 
   @smoke
@@ -16,3 +16,5 @@ Feature: Test base functionality on Home Page
     And Product can't be added to the basket by "Add to Cart" button as "OUT OF STOCK"
     And Product can't be added to the basket by "Buy now" button as "OUT OF STOCK"
     And user navigates to "Components" shopping category list page
+    And Products List Page is opened
+    And "HTC Touch HD" product is present on the Products List Page
