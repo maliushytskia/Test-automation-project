@@ -1,8 +1,11 @@
-package core.elements;
+package core.entities;
 
+import core.elements.BaseElement;
+
+import java.io.Serializable;
 import java.util.Optional;
 
-public class Product extends BaseElement {
+public class Product {
     private String name;
     private double price;
     private Optional<String> productCode;
@@ -17,7 +20,6 @@ public class Product extends BaseElement {
         this.availability = builder.availability;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -65,9 +67,14 @@ public class Product extends BaseElement {
         private Optional<String> brand = Optional.empty();
         private Optional<String> availability = Optional.empty();
 
-        public ProductBuilder(String name, double price) {
+        public ProductBuilder withName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public ProductBuilder withPrice(double price) {
             this.price = price;
+            return this;
         }
 
         public ProductBuilder withProductCode(String productCode) {

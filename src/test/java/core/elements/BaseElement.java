@@ -27,7 +27,6 @@ public abstract class BaseElement {
     }
 
     public BaseElement() {
-
     }
 
     public WebElement findElement() {

@@ -2,6 +2,7 @@ package core.elements;
 
 import core.Browser;
 import core.Logger;
+import core.entities.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,11 +25,12 @@ public class Grid extends BaseElement {
             double price = 0.0;
             try {
                 price = Double.parseDouble(productElement.findElement(By.xpath(
-                        "//div[contains(@class,'product-grid')]//child::div/span")).getText());
+                                "//div[contains(@class,'product-grid')]//child::div/span"))
+                        .getText().substring(1));
             } catch (NumberFormatException e) {
                 Logger.getInstance().warn("Price is not valid" + e.getMessage());
             }
-            products.add(new Product.ProductBuilder(name, price).build());
+            products.add(new Product.ProductBuilder().withName(name).withPrice(price).build());
         }
         return products;
     }
