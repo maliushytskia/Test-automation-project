@@ -3,7 +3,9 @@ package utils;
 public enum ProductCategory {
     COMPONENTS("25"),
     CAMERAS("33"),
-    TABLETS("57");
+    TABLETS("57"),
+    SOFTWARE("17"),
+    WEB_CAMERAS("32");
 
     private final String categoryId;
 

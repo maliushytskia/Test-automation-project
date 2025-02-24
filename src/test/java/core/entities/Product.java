@@ -3,6 +3,7 @@ package core.entities;
 import core.elements.BaseElement;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Product {
@@ -58,6 +59,34 @@ public class Product {
 
     public void setAvailability(Optional<String> availability) {
         this.availability = availability;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(price, product.price) == 0 &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(productCode, product.productCode) &&
+                Objects.equals(brand, product.brand) &&
+                Objects.equals(availability, product.availability);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", productCode=" + productCode +
+                ", brand=" + brand +
+                ", availability=" + availability +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price, productCode, brand, availability);
     }
 
     public static class ProductBuilder {

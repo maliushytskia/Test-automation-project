@@ -22,7 +22,6 @@ public class ProductsListPage extends BasePage {
 
     public String getProductName(String productName) {
         Grid grid = new Grid(By.xpath("//div[contains(@data-grid,'product-layout product-grid')]"), "Products table");
-        //  Logger.getInstance().info(grid.getTableData().stream().map(Product::getName).toList().toString());
         return grid.getTableData().stream().map(Product::getName).filter(n -> n.equals(productName))
                 .findFirst().orElse(null);
     }
