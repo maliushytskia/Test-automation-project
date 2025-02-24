@@ -31,8 +31,8 @@ public class ProductEndpointSteps {
         Assertions.assertTrue(ProductEndpoint.isProductPresentInHtmlResponse(productName, products));
     }
 
-    @Given("user gets product by product ID {int}")
-    public void userGetsProductByProductIdStep(int productId) {
+    @Given("user gets product by product ID {int} and expects {int} code")
+    public void userGetsProductByProductIdStep(int productId, int statusCode) {
         Logger.getInstance().info(String.format("Getting product by product id %s from HTML response..", productId));
         products = ProductEndpoint.getProductById(productId, 200);
     }
