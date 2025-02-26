@@ -52,6 +52,7 @@ public class HooksUI {
             }
         }
         logger.logTestEnd(scenarioName, testPassed);
+        afterAllScenarios();
     }
 
     @AfterAll
