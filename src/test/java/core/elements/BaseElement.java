@@ -3,15 +3,13 @@ package core.elements;
 import core.Browser;
 import core.Constants;
 import core.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class BaseElement {
     private static WebDriver driver = Browser.getDriver();
@@ -23,23 +21,20 @@ public abstract class BaseElement {
     public BaseElement(By locator, String name) {
         this.locator = locator;
         this.name = name;
-        this.element = findElement();
     }
 
     public BaseElement() {
     }
 
-    public WebElement findElement() {
-        List<WebElement> list = driver.findElements(locator);
-        if (list.isEmpty()) {
-            return null;
+    public BaseElement getElement() {
+        if (element == null) {
+            FluentWait<WebDriver> fluentWait = new FluentWait<>(driver)
+                    .withTimeout(Constants.DEFAULT_WAIT_TIME)
+                    .pollingEvery(Duration.ofMillis(Constants.DEFAULT_TIMEOUT_MS))
+                    .ignoring(NoSuchElementException.class);
+            element = fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         }
-
-        return list.
-                stream().
-                filter(WebElement::isDisplayed).
-                findFirst()
-                .orElse(null);
+        return this;
     }
 
     public By getLocator() {
@@ -50,8 +45,12 @@ public abstract class BaseElement {
         return name;
     }
 
+    public WebElement getWebElement() {
+        return element;
+    }
+
     public boolean isEnabled() {
-        return driver.findElement(locator).isEnabled();
+        return getElement().isEnabled();
     }
 
     public void waitForElementClickable() {
@@ -59,14 +58,31 @@ public abstract class BaseElement {
                 .withTimeout(Constants.DEFAULT_WAIT_TIME)
                 .pollingEvery(Duration.ofMillis(500))
                 .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.elementToBeClickable(element));
+                .ignoring(ElementClickInterceptedException.class)
+                .until(ExpectedConditions.elementToBeClickable(getElement().getWebElement()));
     }
 
-    public void click() {
+    public void clickOnElement() {
         if (isPresent(Constants.DEFAULT_TIMEOUT_MS)) {
             waitForElementClickable();
             logger.info(String.format("Clicking on %s element", name));
-            element.click();
+            getElement().getWebElement().click();
+        }
+    }
+
+    public void clickOnElementWithScroll() {
+        if (isPresent(Constants.DEFAULT_TIMEOUT_MS)) {
+            waitForElementClickable();
+            logger.info(String.format("Clicking on %s element", name));
+            scrollToElementForVisibility();
+            getElement().getWebElement().click();
+        }
+    }
+
+    void scrollToElementForVisibility() {
+        if (element != null) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            logger.info("Scrolled to element: " + name);
         }
     }
 
@@ -74,15 +90,15 @@ public abstract class BaseElement {
         return driver.findElements(locator);
     }
 
-    public void sendKeys(String value) {
+    public void sendKeysToElement(String value) {
         if (isPresent(Constants.DEFAULT_TIMEOUT_MS)) {
             logger.info(String.format("Sending %s value in %s element", value, name));
-            driver.findElement(locator).sendKeys(value);
+            element.sendKeys(value);
         }
     }
 
     public boolean isElementPresent() {
-        logger.info(String.format("Checking presence of %s element", element));
+        logger.info(String.format("Checking presence of %s element", getElement()));
         return isPresent(Constants.DEFAULT_TIMEOUT_MS);
     }
 
@@ -93,25 +109,14 @@ public abstract class BaseElement {
                 .pollingEvery(Constants.DEFAULT_WAIT_TIME)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
-
         try {
-            element = fluentWait.until(driver -> {
-                List<WebElement> list = driver.findElements(locator);
-                if (list.isEmpty()) {
-                    return null;
-                }
-
-                return list.
-                        stream().
-                        filter(WebElement::isDisplayed).
-                        findFirst()
-                        .orElse(null);
-            });
-
-            return element != null;
-
-        } catch (Exception e) {
-            logger.warn(String.format("Element %s is not found after waiting for %d milliseconds", element, timeout));
+            element = fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            if (element != null) {
+                Logger.getInstance().info(String.format("Element %s is present and visible after waiting for %d milliseconds", locator, timeout));
+                return true;
+            }
+        } catch (NoSuchElementException e) {
+            logger.warn(String.format("Element %s is not found after waiting for %d milliseconds", locator, timeout));
         }
         return false;
     }

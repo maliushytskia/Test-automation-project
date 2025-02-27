@@ -20,10 +20,9 @@ public abstract class BasePage {
     protected BasePage(By locator, String name) {
         this.locator = locator;
         this.name = name;
-        isPageOpen();
     }
 
-    private void isPageOpen() {
+    protected void isPageOpen() {
         Label lbl = new Label(locator, name);
         try {
             lbl.isElementPresent();
