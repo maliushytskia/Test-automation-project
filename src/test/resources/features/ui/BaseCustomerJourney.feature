@@ -17,4 +17,15 @@ Feature: Test base functionality on Home Page
     And Product can't be added to the basket by "Buy now" button as "OUT OF STOCK"
     And user navigates to "Components" shopping category list page
     And Products List Page is opened
-    And "HTC Touch HD" product is present on the Products List Page
+    And user navigates to 2 page
+    And "HP LP3065" product is present on the Products List Page
+    And user opens "HP LP3065" product from Components page
+    And Product Details page is opened
+    And user clicks Buy Now button on Product Details page
+    And Checkout page is opened
+    And user accepts Privacy Policy
+    And user accepts Terms and Conditions
+    And user specifies user account data for the following fields:
+      | First Name | Last Name | E-Mail          | Telephone  | Password | Password Confirm | Address 1 | City   | Post Code |
+      | Joe        | Doe       | {generateEmail} | 4412345678 | 1234     | 1234             | Test      | London | SW1W 0NY  |
+    And user clicks Continue button on Checkout page

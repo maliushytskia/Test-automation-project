@@ -21,8 +21,15 @@ public class ProductsListPage extends BasePage {
     }
 
     public String getProductName(String productName) {
-        Grid grid = new Grid(By.xpath("//div[contains(@data-grid,'product-layout product-grid')]"), "Products table");
+        Grid grid = new Grid(By.xpath("//div[contains(@class,'product-layout product-grid')]"), "Products table");
         return grid.getTableData().stream().map(Product::getName).filter(n -> n.equals(productName))
                 .findFirst().orElse(null);
+    }
+
+    public void navigateToPage(int pageNumber) {
+        Button pagination = new Button(By.xpath(
+                String.format("//ul[@class='pagination']//a[contains(@href,'page=%s')]", pageNumber)),
+                String.format("Pagination page %s", pageNumber));
+        pagination.clickOnElement();
     }
 }

@@ -46,8 +46,6 @@ public class ProductEndpointSteps {
     @Then("user checks product details for the following fields:")
     public void userChecksProductDetailsForTheFollowingFields(DataTable table) {
         Product expectedProduct = ProductEndpoint.getProductFromDataTable(table);
-        System.out.println(expectedProduct);
-        System.out.println(product);
         Assertions.assertEquals(expectedProduct, product);
     }
 }

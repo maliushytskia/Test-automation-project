@@ -18,17 +18,16 @@ public class Grid extends BaseElement {
         isElementPresent();
         List<WebElement> productElements = Browser.getDriver().findElements(this.getLocator());
         List<Product> products = new ArrayList<>();
-
         for (WebElement productElement : productElements) {
             String name = productElement.findElement(By.xpath(
-                    "//div[contains(@class,'product-grid')]//child::h4/a")).getText();
+                    ".//h4/a")).getText();
             double price = 0.0;
             try {
                 price = Double.parseDouble(productElement.findElement(By.xpath(
-                                "//div[contains(@class,'product-grid')]//child::div/span"))
-                        .getText().substring(1));
+                                ".//div[@class='price']/span"))
+                        .getText().replaceAll("[^\\d.]", ""));
             } catch (NumberFormatException e) {
-                Logger.getInstance().warn("Price is not valid" + e.getMessage());
+                Logger.getInstance().warn("Price is not valid " + e.getMessage());
             }
             products.add(new Product.ProductBuilder().withName(name).withPrice(price).build());
         }

@@ -18,4 +18,10 @@ public class ProductsListPageSteps {
     public void isProductPresentOnProductsListPage(String productName) {
         Assertions.assertEquals(productName, productsListPage.getProductName(productName));
     }
+
+    @When("user navigates to {int} page")
+    public void navigateToPage(int pageNumber) {
+        Logger.getInstance().info(String.format("User navigates to page %s", pageNumber));
+        productsListPage.navigateToPage(pageNumber);
+    }
 }

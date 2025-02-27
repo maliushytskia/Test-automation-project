@@ -1,9 +1,13 @@
 package steps.ui;
 
+import core.Browser;
 import core.Logger;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import pages.ProductDetailsPage;
+
+import java.time.Duration;
 
 public class ProductDetailsPageSteps {
     private ProductDetailsPage productDetailsPage;
@@ -24,5 +28,10 @@ public class ProductDetailsPageSteps {
     public void navigateToShoppingCategoryViaBreadcrumbs(String category) {
         Logger.getInstance().info(String.format("Navigating to %s category", category));
         productDetailsPage.navigateToShoppingCategoryBreadcrumbs(category);
+    }
+
+    @And("user clicks Buy Now button on Product Details page")
+    public void clickBuyNowButtonOnProductDetailsPage() {
+        productDetailsPage.clickOnBuyNow();
     }
 }

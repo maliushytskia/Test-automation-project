@@ -19,14 +19,14 @@ public class HomePage extends BasePage implements Product {
     }
 
     public HomePage openShopByCategoryMenu() {
-        SHOP_BY_CATEGORY.click();
+        SHOP_BY_CATEGORY.clickOnElement();
         return this;
     }
 
     public HomePage openShopCategory(String categoryName) {
         Button element = new Button(By.xpath
                 ("//div[@class='info']//span[normalize-space(text()) = '" + categoryName + "']"), categoryName);
-        element.click();
+        element.clickOnElement();
         return this;
     }
 
