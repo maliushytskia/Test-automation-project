@@ -25,4 +25,10 @@ public class ProductsListPageSteps {
         Logger.getInstance().info(String.format("User navigates to page %s", pageNumber));
         productsListPage.navigateToPage(pageNumber);
     }
+
+    @When("user opens {string} product from Products List page")
+    public void openProductByProductName(String productName) {
+        Logger.getInstance().info("Opening product");
+        productsListPage.openProductByName(productName);
+    }
 }

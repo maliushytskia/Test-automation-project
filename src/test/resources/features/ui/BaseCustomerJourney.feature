@@ -10,8 +10,8 @@ Feature: Test base functionality on Home Page
     Given Home Page is opened
     And user opens Shop by Category panel
     And user opens "Components" category
-    And Components page is opened
-    And user opens "HTC Touch HD" product from Components page
+    And Products List Page is opened
+    And user opens "HTC Touch HD" product from Products List page
     And Product Details page is opened
     And Product can't be added to the basket by "Add to Cart" button as "OUT OF STOCK"
     And Product can't be added to the basket by "Buy now" button as "OUT OF STOCK"
@@ -19,7 +19,7 @@ Feature: Test base functionality on Home Page
     And Products List Page is opened
     And user navigates to 2 page
     And "HP LP3065" product is present on the Products List Page
-    And user opens "HP LP3065" product from Components page
+    And user opens "HP LP3065" product from Products List page
     And Product Details page is opened
     And user clicks Buy Now button on Product Details page
     And Checkout page is opened

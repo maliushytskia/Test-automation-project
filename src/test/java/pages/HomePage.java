@@ -47,5 +47,4 @@ public class HomePage extends BasePage implements Product {
         MY_ACCOUNT.hoveringOverWebElement();
         OPEN_LOGIN.clickOnElement();
     }
-
 }

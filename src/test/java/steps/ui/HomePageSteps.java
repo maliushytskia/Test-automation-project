@@ -17,7 +17,6 @@ public class HomePageSteps {
     @Given("user opens Shop by Category panel")
     public void openShopByCategoryPanel() {
         Logger.getInstance().info("Shop by Category panel opening");
-        homePage.openProductByName("HTC Touch HD");
         homePage.openShopByCategoryMenu();
     }
 

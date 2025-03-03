@@ -6,9 +6,7 @@ import core.entities.Product;
 import core.elements.Grid;
 import org.openqa.selenium.By;
 
-import static io.restassured.RestAssured.given;
-
-public class ProductsListPage extends BasePage {
+public class ProductsListPage extends BasePage implements pages.components.Product {
     private final Button FILTERS_BY_CATEGORY =
             new Button(
                     By.xpath("//div[contains(@class,'content-refine-search')]//a"),
