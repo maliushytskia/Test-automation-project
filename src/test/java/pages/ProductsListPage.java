@@ -21,9 +21,10 @@ public class ProductsListPage extends BasePage {
     }
 
     public String getProductName(String productName) {
+        Logger.getInstance().info(String.format("Doing search for %s product", productName));
         Grid grid = new Grid(By.xpath("//div[contains(@class,'product-layout product-grid')]"), "Products table");
         return grid.getTableData().stream().map(Product::getName).filter(n -> n.equals(productName))
-                .findFirst().orElse(null);
+                .findFirst().orElse("No products are found for specified criteria");
     }
 
     public void navigateToPage(int pageNumber) {
