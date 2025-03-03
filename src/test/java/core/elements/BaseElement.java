@@ -4,16 +4,17 @@ import core.Browser;
 import core.Constants;
 import core.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class BaseElement {
     private static WebDriver driver = Browser.getDriver();
     private static Logger logger = Logger.getInstance();
+    private final Actions actions = new Actions(driver);
     protected WebElement element;
     private By locator;
     private String name;
@@ -53,6 +54,14 @@ public abstract class BaseElement {
         return getElement().isEnabled();
     }
 
+    public String getWebElementText() {
+        FluentWait<WebDriver> wait = new FluentWait<>(Browser.getDriver())
+                .ignoring(NullPointerException.class)
+                .withTimeout(Constants.DEFAULT_WAIT_TIME).pollingEvery(Duration.ofMillis(Constants.DEFAULT_TIMEOUT_MS));
+
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    }
+
     public void waitForElementClickable() {
         new FluentWait<>(driver)
                 .withTimeout(Constants.DEFAULT_WAIT_TIME)
@@ -87,7 +96,16 @@ public abstract class BaseElement {
     }
 
     public List<WebElement> findElements() {
-        return driver.findElements(locator);
+        FluentWait<WebDriver> fluentWait = new FluentWait<>(driver);
+        fluentWait
+                .withTimeout(Constants.DEFAULT_WAIT_TIME)
+                .pollingEvery(Duration.ofMillis(Constants.DEFAULT_TIMEOUT_MS))
+                .ignoring(NoSuchElementException.class);
+
+        return fluentWait.until(driver -> {
+            List<WebElement> elements = driver.findElements(locator);
+            return (elements.isEmpty()) ? null : elements;
+        });
     }
 
     public void sendKeysToElement(String value) {
@@ -119,5 +137,10 @@ public abstract class BaseElement {
             logger.warn(String.format("Element %s is not found after waiting for %d milliseconds", locator, timeout));
         }
         return false;
+    }
+
+    public void hoveringOverWebElement() {
+        Logger.getInstance().info(String.format("Hovering over the element %s", locator));
+        actions.moveToElement(getElement().getWebElement()).perform();
     }
 }
