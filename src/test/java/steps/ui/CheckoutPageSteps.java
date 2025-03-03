@@ -13,7 +13,6 @@ public class CheckoutPageSteps {
     public void checkoutPageOpened() {
         Logger.getInstance().info("Checkout Page opening");
         checkoutPage = new CheckoutPage();
-        Logger.getInstance().info("Checkout Page opened");
     }
 
     @When("^user accepts Privacy Policy")
