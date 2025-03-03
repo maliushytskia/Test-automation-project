@@ -33,32 +33,32 @@ public class HooksUI {
 
         if (scenario.getStatus() == Status.FAILED) {
             testPassed = false;
-        }
-
-        if (!testPassed) {
-            logger.info("Test failed, capturing screenshot...");
-            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "png", "screenshot");
-
-            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String filePath = String.format("./src/test/java/artifacts/%s_screenshot_%s.png", scenario.getName(), timestamp);
-
-            try {
-                logger.info("Saving screenshot to: " + filePath);
-                Files.createDirectories(Paths.get("./src/test/java/artifacts"));
-                Files.write(Paths.get(filePath), screenshot);
-            } catch (IOException e) {
-                logger.error("Error saving screenshot: " + e.getMessage());
-            }
+            makeScreenshot(scenario);
         }
         logger.logTestEnd(scenarioName, testPassed);
-        afterAllScenarios();
     }
 
     @AfterAll
     public static void afterAllScenarios() {
         if (driver != null) {
             driver.quit();
+        }
+    }
+
+    private void makeScreenshot(Scenario scenario) {
+        logger.info("Test failed, capturing screenshot...");
+        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "png", "screenshot");
+
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filePath = String.format("./src/test/java/artifacts/%s_screenshot_%s.png", scenario.getName(), timestamp);
+
+        try {
+            logger.info("Saving screenshot to: " + filePath);
+            Files.createDirectories(Paths.get("./src/test/java/artifacts"));
+            Files.write(Paths.get(filePath), screenshot);
+        } catch (IOException e) {
+            logger.error("Error saving screenshot: " + e.getMessage());
         }
     }
 }
