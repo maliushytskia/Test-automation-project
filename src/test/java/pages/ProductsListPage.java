@@ -14,7 +14,7 @@ public class ProductsListPage extends BasePage implements pages.components.Produ
             );
 
     public ProductsListPage() {
-        super(By.xpath("//table[contains(@class,'table')]"), "Products list page");
+        super(By.xpath("//h3[.='Filter']"), "Products list page");
         Logger.getInstance().info(String.format("%s is opened", this.getClass().getSimpleName()));
     }
 

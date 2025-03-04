@@ -1,8 +1,5 @@
 package core.entities;
 
-import core.elements.BaseElement;
-
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 

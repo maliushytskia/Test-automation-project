@@ -7,7 +7,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -125,10 +124,9 @@ public abstract class BaseElement {
         fluentWait
                 .withTimeout(Duration.ofMillis(timeout))
                 .pollingEvery(Constants.DEFAULT_WAIT_TIME)
-                .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
+                .ignoring(NoSuchElementException.class);
         try {
-            element = fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            element = fluentWait.until(ExpectedConditions.presenceOfElementLocated(locator));
             if (element != null) {
                 Logger.getInstance().info(String.format("Element %s is present and visible after waiting for %d milliseconds", locator, timeout));
                 return true;
