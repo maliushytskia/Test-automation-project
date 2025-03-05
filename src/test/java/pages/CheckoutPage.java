@@ -7,7 +7,7 @@ import core.elements.CheckBox;
 import core.elements.TextField;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.By;
-import utils.TestDataProvider;
+import core.TestDataProvider;
 
 import java.util.*;
 
