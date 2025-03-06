@@ -17,12 +17,7 @@ public class Browser {
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--user-data-dir=/tmp/chrome-profile");
-                    options.addArguments("--disable-dev-shm-usage");
-                    //  options.addArguments("--headless");
-                    options.addArguments("--disable-gpu");
-                    options.addArguments("--no-sandbox");
+                    ChromeOptions options = getChromeOptions();
                     driver = new ChromeDriver(options);
                     break;
                 case "firefox":
@@ -39,5 +34,19 @@ public class Browser {
             driver.manage().window().maximize();
         }
         return driver;
+    }
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--user-data-dir=/tmp/chrome-profile");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-autofill-keyboard-accessory-view");
+        options.addArguments("--disable-password-manager");
+        return options;
     }
 }

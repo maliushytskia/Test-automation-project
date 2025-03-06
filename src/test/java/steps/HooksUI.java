@@ -22,6 +22,7 @@ public class HooksUI {
     @Before("@ui")
     public void beforeTest(Scenario scenario) {
         driver = Browser.getDriver();
+        driver.manage().deleteAllCookies();
         driver.get(Constants.BASE_STORE_URL);
         scenarioName = scenario.getName();
         logger.logTestName(scenarioName);
