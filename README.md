@@ -74,11 +74,16 @@ Jenkins configuration is available in Docker Container locally.
 Command ```mvn allure:serve``` is actually generates HTML report right after test run ```mvn clean test```.
 Or it can be automatically generated in Jenkins pipeline after test run.
 
+Screenshots are generated automatically for failed UI tests in **artifacts** package.
+
+Logging is implemented using **Log4J**. A Log file is stored in the project root folder.
+
 # Used technologies
 - Java 21
 - Maven
 - Selenium
-- JUnit Jupiter
+- Cucumber
+- JUnit5 Jupiter
 - Rest Assured
 - Allure Report
 - Jenkins
