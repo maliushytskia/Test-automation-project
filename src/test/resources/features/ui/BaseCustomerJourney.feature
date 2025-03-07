@@ -47,7 +47,6 @@ Feature: Test base functionality on Home Page
     And Products List Page is opened
     And "Apple Cinema 30\"" product is present on the Products List Page
 
-  @Tag(wip)
   @smoke
   @allure.label.jira:AE-3
   @allure.id:3

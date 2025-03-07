@@ -13,32 +13,35 @@ public class Browser {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            String browser = System.getProperty("browser", "chrome");
-            switch (browser.toLowerCase()) {
-                case "chrome":
-                    WebDriverManager.chromedriver().setup();
-                    ChromeOptions options = getChromeOptions();
-                    driver = new ChromeDriver(options);
-                    break;
-                case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
-                    break;
-                case "edge":
-                    WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unsupported browser: " + browser);
+            try {
+                String browser = System.getProperty("browser", "chrome");
+                switch (browser.toLowerCase()) {
+                    case "chrome":
+                        WebDriverManager.chromedriver().setup();
+                        ChromeOptions options = getChromeOptions();
+                        driver = new ChromeDriver(options);
+                        break;
+                    case "firefox":
+                        WebDriverManager.firefoxdriver().setup();
+                        driver = new FirefoxDriver();
+                        break;
+                    case "edge":
+                        WebDriverManager.edgedriver().setup();
+                        driver = new EdgeDriver();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unsupported browser: " + browser);
+                }
+                driver.manage().window().maximize();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to initialize browser", e);
             }
-            driver.manage().window().maximize();
         }
         return driver;
     }
 
     private static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-        //  options.addArguments("--user-data-dir=/tmp/chrome-profile");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");

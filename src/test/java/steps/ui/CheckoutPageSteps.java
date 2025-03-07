@@ -36,4 +36,3 @@ public class CheckoutPageSteps {
         checkoutPage.clickContinue();
     }
 }
-

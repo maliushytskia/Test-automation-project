@@ -1,18 +1,7 @@
 package steps;
 
-import core.Browser;
-import core.Constants;
 import core.Logger;
 import io.cucumber.java.*;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class HooksAPI {
     private static Logger logger = Logger.getInstance();

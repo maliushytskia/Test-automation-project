@@ -1,13 +1,10 @@
 package steps.ui;
 
-import core.Browser;
 import core.Logger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import pages.ProductDetailsPage;
-
-import java.time.Duration;
 
 public class ProductDetailsPageSteps {
     private ProductDetailsPage productDetailsPage;

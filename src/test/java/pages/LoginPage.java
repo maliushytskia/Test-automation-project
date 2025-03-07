@@ -37,6 +37,6 @@ public class LoginPage extends BasePage {
     }
 
     public void eraseLoginField() {
-        EMAIL_ADDRESS.sendKeysToElement("");
+        EMAIL_ADDRESS.eraseValueFromField();
     }
 }

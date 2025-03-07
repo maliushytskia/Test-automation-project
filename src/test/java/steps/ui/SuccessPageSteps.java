@@ -18,5 +18,4 @@ public class SuccessPageSteps {
         Logger.getInstance().info("User clicking on Continue button on Success page");
         successPage.clickContinue();
     }
-
 }

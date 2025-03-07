@@ -129,7 +129,7 @@ public abstract class BaseElement {
         try {
             element = fluentWait.until(ExpectedConditions.presenceOfElementLocated(locator));
             if (element != null) {
-                Logger.getInstance().info(String.format("Element %s is present and visible after waiting for %d milliseconds", locator, timeout));
+                Logger.getInstance().warn(String.format("Element %s is present and visible after waiting for %d milliseconds", locator, timeout));
                 return true;
             }
         } catch (NoSuchElementException e) {

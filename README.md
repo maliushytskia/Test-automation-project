@@ -62,6 +62,21 @@ mvn test -Dgroups="api"
 mvn test
 ```
 
+* To run **UI** tests in different browsers in console:
+```sh
+mvn test -Dbrowser=firefox -Dgroups="ui"
+```
+Available browsers to set:
+- Chrome;
+- Firefox;
+- Edge.
+
+* To run **UI** tests in headless mode in console:
+```sh
+mvn test -Dbrowser=chrome -Dheadless=true -Dgroups="ui"
+```
+Test suite to be run without browser opening where tests interact directly with DOM tree 
+
 Also tests can be run via development shell functionality and via Jenkins pipeline
 
 # CI Process
@@ -76,7 +91,7 @@ Or it can be automatically generated in Jenkins pipeline after test run.
 
 Screenshots are generated automatically for failed UI tests in **artifacts** package.
 
-Logging is implemented using **Log4J**. A Log file is stored in the project root folder.
+Logging is implemented using **Log4J**. A Log file is stored in the project **artifacts** folder.
 
 # Used technologies
 - Java 21
