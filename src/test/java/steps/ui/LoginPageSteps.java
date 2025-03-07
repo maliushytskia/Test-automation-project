@@ -32,4 +32,8 @@ public class LoginPageSteps {
         Assertions.assertEquals(expectedValidationMessage, loginPage.getValidationMessage());
     }
 
+    @When("user removes specified email")
+    public void removeEnteredEmail() {
+        loginPage.eraseLoginField();
+    }
 }

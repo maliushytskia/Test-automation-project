@@ -1,6 +1,5 @@
 package core.elements;
 
-import core.Browser;
 import core.Logger;
 import org.openqa.selenium.By;
 

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class BaseElement {
     private static WebDriver driver = Browser.getDriver();
@@ -115,7 +116,7 @@ public abstract class BaseElement {
     }
 
     public boolean isElementPresent() {
-        logger.info(String.format("Checking presence of %s element", getElement()));
+        logger.info(String.format("Checking presence of %s element", getElement().getName()));
         return isPresent(Constants.DEFAULT_TIMEOUT_MS);
     }
 
@@ -140,5 +141,18 @@ public abstract class BaseElement {
     public void hoveringOverWebElement() {
         Logger.getInstance().info(String.format("Hovering over the element %s", locator));
         actions.moveToElement(getElement().getWebElement()).perform();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseElement element = (BaseElement) o;
+        return Objects.equals(locator, element.locator) && Objects.equals(name, element.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(locator, name);
     }
 }

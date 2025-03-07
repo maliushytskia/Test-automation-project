@@ -47,6 +47,7 @@ Feature: Test base functionality on Home Page
     And Products List Page is opened
     And "Apple Cinema 30\"" product is present on the Products List Page
 
+  @Tag(wip)
   @smoke
   @allure.label.jira:AE-3
   @allure.id:3
@@ -59,6 +60,7 @@ Feature: Test base functionality on Home Page
     And user specifies email "joe.doe@test.net" and password "1234"
     And user clicks Login button
     And user see validation message for invalid credentials
+    And user removes specified email
     When user specifies email "joe.doe@test.com" and password "1234"
     And user clicks Login button
     Then Account page is opened

@@ -32,6 +32,11 @@ public class LoginPage extends BasePage {
     }
 
     public String getValidationMessage() {
+        Logger.getInstance().info("Getting validation message..");
         return WARNING_INVALID_CREDENTIALS.getElement().getWebElementText();
+    }
+
+    public void eraseLoginField() {
+        EMAIL_ADDRESS.sendKeysToElement("");
     }
 }
