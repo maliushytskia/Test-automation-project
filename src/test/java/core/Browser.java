@@ -38,7 +38,7 @@ public class Browser {
 
     private static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-data-dir=/tmp/chrome-profile");
+        //  options.addArguments("--user-data-dir=/tmp/chrome-profile");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
