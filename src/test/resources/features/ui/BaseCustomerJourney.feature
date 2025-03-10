@@ -60,6 +60,7 @@ Feature: Test base functionality on Home Page
     And user clicks Login button
     And user see validation message for invalid credentials
     And user removes specified email
+    And user removes specified password
     When user specifies email "joe.doe@test.com" and password "1234"
     And user clicks Login button
     Then Account page is opened

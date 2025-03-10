@@ -36,4 +36,9 @@ public class LoginPageSteps {
     public void removeEnteredEmail() {
         loginPage.eraseLoginField();
     }
+
+    @When("user removes specified password")
+    public void removeEnteredPassword() {
+        loginPage.erasePasswordField();
+    }
 }

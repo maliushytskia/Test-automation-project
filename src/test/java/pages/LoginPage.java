@@ -39,4 +39,8 @@ public class LoginPage extends BasePage {
     public void eraseLoginField() {
         EMAIL_ADDRESS.eraseValueFromField();
     }
+
+    public void erasePasswordField() {
+        PASSWORD.eraseValueFromField();
+    }
 }
