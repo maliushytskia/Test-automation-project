@@ -11,7 +11,6 @@ Project to run GUI / API tests in Java / Selenium stack
 # Table of content:
 - [Requirements](#requirements)
 - [Quick start](#quick-start)
-- [Difference between API and GUI autotests](#difference-between-api-and-gui-autotests)
 - [How to run tests](#how-to-run-tests)
 - [Reports](#reports)
 - [CI Process](#ci-process)
