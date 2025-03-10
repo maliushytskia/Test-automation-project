@@ -11,7 +11,7 @@ public class TextField extends BaseElement {
 
     public void eraseValueFromField() {
         Logger.getInstance().info(String.format("Clearing %s field", element));
-        isPresent(Constants.DEFAULT_TIMEOUT_MS);
+        isElementPresent();
         element.clear();
     }
 }

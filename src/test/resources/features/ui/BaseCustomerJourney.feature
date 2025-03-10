@@ -1,13 +1,15 @@
 @ui @positive
 Feature: Test base functionality on Home Page
 
+  Background:
+    Given Home Page is opened
+
   @smoke
   @allure.label.jira:AE-1
   @allure.id:1
   @allure.label.feature:SimpleCustomerFlow
   @allure.label.story:ByProductFromComponents
   Scenario: Buying a new product
-    Given Home Page is opened
     And user opens Shop by Category panel
     And user opens "Components" category
     And Products List Page is opened
@@ -41,11 +43,10 @@ Feature: Test base functionality on Home Page
   @allure.label.feature:SearchProducts
   @allure.label.story:SearchProductsViaSearchBar
   Scenario: Search product via search bar
-    Given Home Page is opened
     And user fills in search input "Apple Cinema 30" to Search Bar
     And user clicks Search button
-    And Products List Page is opened
-    And "Apple Cinema 30\"" product is present on the Products List Page
+    When Products List Page is opened
+    Then "Apple Cinema 30\"" product is present on the Products List Page
 
   @smoke
   @allure.label.jira:AE-3
@@ -53,7 +54,6 @@ Feature: Test base functionality on Home Page
   @allure.label.feature:LogIn
   @allure.label.story:UserLogIn
   Scenario: User Log In
-    Given Home Page is opened
     And user opens Login page
     And Login Page is opened
     And user specifies email "joe.doe@test.net" and password "1234"
