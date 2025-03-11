@@ -66,9 +66,9 @@ mvn test
 mvn test -Dbrowser=firefox -Dgroups="ui"
 ```
 Available browsers to set:
-- Chrome;
-- Firefox;
-- Edge.
+- Chrome
+- Firefox
+- Edge
 
 * To run **UI** tests in headless mode in console:
 ```sh
