@@ -4,10 +4,12 @@ import core.Browser;
 import core.Constants;
 import core.Logger;
 import io.cucumber.java.*;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,7 +36,9 @@ public class HooksUI {
 
         if (scenario.getStatus() == Status.FAILED) {
             testPassed = false;
-            makeScreenshot(scenario);
+            byte[] screenshot = makeScreenshot(scenario);
+            Allure.addAttachment("Screenshot", "image/png",
+                    new ByteArrayInputStream(screenshot), "png");
         }
         logger.logTestEnd(scenarioName, testPassed);
     }
@@ -46,7 +50,7 @@ public class HooksUI {
         }
     }
 
-    private void makeScreenshot(Scenario scenario) {
+    private byte[] makeScreenshot(Scenario scenario) {
         logger.info("Test failed, capturing screenshot...");
         byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshot, "png", "screenshot");
@@ -61,5 +65,6 @@ public class HooksUI {
         } catch (IOException e) {
             logger.error("Error saving screenshot: " + e.getMessage());
         }
+        return screenshot;
     }
 }
