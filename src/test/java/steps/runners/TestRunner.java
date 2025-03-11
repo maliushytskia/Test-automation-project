@@ -13,7 +13,7 @@ import static io.cucumber.core.options.Constants.GLUE_PROPERTY_NAME;
         plugin = {
                 "pretty",
                 "json:target/cucumber-report/cucumber.json",
-                "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
         dryRun = false,
         monochrome = true,
