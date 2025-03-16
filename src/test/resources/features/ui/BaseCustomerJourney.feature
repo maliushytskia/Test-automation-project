@@ -1,5 +1,8 @@
 @ui @positive
-Feature: Test base functionality on Home Page
+Feature: Test base functionality of the shop
+  As an end user
+  I need to ensure that I can search for a new product
+  buy it and log it to my account
 
   Background:
     Given Home Page is opened

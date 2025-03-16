@@ -1,5 +1,8 @@
 @api
-Feature: API tests to check base product functionality
+Feature: Get products
+  In order to use API
+  As a client of shop
+  I need to be able to get products and interact with them
 
   Scenario Outline: Check products by category are present
     Given user gets products by product category "<category>" and expects 200 code

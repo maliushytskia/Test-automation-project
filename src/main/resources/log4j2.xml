@@ -9,7 +9,7 @@
 
         <File name="MyFile"
               fileName="src/test/java/artifacts/all-${date:yyyy-MM-dd_HH-mm-ss_SSS}.log"
-        append="false">
+        append="true">
         <PatternLayout>
             <Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
         </PatternLayout>
